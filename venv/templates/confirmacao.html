@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmação de Agendamento</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #1e1e2f; /* Fundo escuro */
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #29293d; /* Fundo do cartão */
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #4caf50; /* Verde de sucesso */
+            margin-bottom: 15px;
+        }
+
+        p {
+            font-size: 16px;
+            color: #ddd;
+            margin: 10px 0;
+        }
+
+        .buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+        }
+
+        .btn-secondary:hover {
+            background-color: #565e64;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+        }
+
+        .alert {
+            font-size: 14px;
+            color: #ff4747;
+            margin: 15px 0;
+        }
+    </style>
+    <script>
+        // Função para copiar os detalhes para a área de transferência
+        function copiarDetalhes() {
+            const nome = "{{ nome }}";
+            const telefone = "{{ telefone }}";
+            const horario = "{{ horario }}";
+
+            const detalhes = `
+Nome: ${nome}
+Telefone: ${telefone}
+Horário: ${horario}
+            `;
+
+            navigator.clipboard.writeText(detalhes).then(() => {
+                alert("Detalhes do agendamento copiados para a área de transferência!");
+            }).catch(err => {
+                console.error("Erro ao copiar os detalhes: ", err);
+            });
+        }
+
+        // Função para compartilhar os detalhes no WhatsApp
+        function compartilharWhatsApp() {
+            const nome = "{{ nome }}";
+            const barbeiro = "{{ barbeiro }}";
+            const telefone = "{{ 85992884178 }}";//colocar o telefone do barbeiro
+            const horario = "{{ horario }}";
+
+            const mensagem = `Olá, meu nome é ${nome}. Estou confirmando meu agendamento com o ${barbeiro} para às ${horario}. Obrigado!`;
+            const url = `https://wa.me/55${telefone}?text=${encodeURIComponent(mensagem)}`;
+            window.open(url, "_blank");
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Agendamento Confirmado!</h1>
+        <p><strong>Nome:</strong> {{ nome }}</p>
+        <p><strong>Telefone:</strong> {{ telefone }}</p>
+        <p><strong>Horário:</strong> {{ horario }}</p>
+        <div class="buttons">
+            <button class="btn btn-secondary" onclick="copiarDetalhes()">Copiar Detalhes</button>
+            <button class="btn btn-success" onclick="compartilharWhatsApp()">Confirmar no WhatsApp</button>
+        </div>
+        <div class="buttons">
+            <a href="/" class="btn btn-primary">Voltar para o Início</a>
+            <a href="/agendar" class="btn btn-secondary">Agendar Novamente</a>
+        </div>
+        <div class="alert">
+            Caso tenha dúvidas ou precise cancelar, entre em contato pelo telefone.
+        </div>
+    </div>
+</body>
+</html>

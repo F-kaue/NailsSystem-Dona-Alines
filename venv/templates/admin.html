@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Agendamentos</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #1e1e2f;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+
+        .container {
+            background-color: #29293d;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            max-width: 900px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+            background-color: #3a3a50;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 10px;
+            cursor: pointer;
+            background-color: #444456;
+            color: #bbb;
+            text-align: center;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+
+        .tab.active {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .table-container {
+            margin-top: 20px;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #3a3a50;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+            color: #fff;
+        }
+
+        th {
+            background-color: #444456;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        td {
+            background-color: #3a3a50;
+            border-bottom: 1px solid #444456;
+        }
+
+        td:last-child {
+            display: flex;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 10px 15px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .empty-message {
+            margin: 20px 0;
+            font-size: 16px;
+            color: #bbb;
+        }
+
+        .footer {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #bbb;
+        }
+
+        .logout {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 14px;
+            background-color: #dc3545;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .logout:hover {
+            background-color: #c82333;
+        }
+
+        @media (max-width: 600px) {
+            th, td {
+                font-size: 12px;
+                padding: 8px;
+            }
+
+            .btn {
+                padding: 8px 12px;
+                font-size: 12px;
+            }
+
+            .tab {
+                font-size: 12px;
+                padding: 8px;
+            }
+        }
+    </style>
+    <script>
+        // Script para alternar entre as abas
+        function showTab(tabId) {
+            const tabs = document.querySelectorAll('.tab');
+            const sections = document.querySelectorAll('.tab-section');
+
+            tabs.forEach(tab => tab.classList.remove('active'));
+            sections.forEach(section => section.style.display = 'none');
+
+            document.getElementById(tabId).style.display = 'block';
+            document.querySelector(`[data-tab="${tabId}"]`).classList.add('active');
+        }
+
+        // Mostrar a aba de pendentes por padrão
+        document.addEventListener('DOMContentLoaded', () => {
+            showTab('pendentes');
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Admin - Agendamentos</h1>
+
+        <!-- Abas de navegação -->
+        <div class="tabs">
+            <div class="tab active" data-tab="pendentes" onclick="showTab('pendentes')">Pendentes</div>
+            <div class="tab" data-tab="confirmados" onclick="showTab('confirmados')">Confirmados</div>
+            <div class="tab" data-tab="todos" onclick="showTab('todos')">Todos</div>
+        </div>
+
+        <!-- Pendentes -->
+        <div id="pendentes" class="tab-section">
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Telefone</th>
+                            <th>Horário</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for agendamento in agendamentos if not agendamento.confirmado %}
+                        <tr>
+                            <td>{{ agendamento.nome }}</td>
+                            <td>{{ agendamento.telefone }}</td>
+                            <td>{{ agendamento.horario }}</td>
+                            <td>
+                                <form action="{{ url_for('confirmar', agendamento_id=agendamento.id) }}" method="post">
+                                    <button type="submit" class="btn">Confirmar</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="4" class="empty-message">Nenhum agendamento pendente.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Confirmados -->
+        <div id="confirmados" class="tab-section" style="display: none;">
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Telefone</th>
+                            <th>Horário</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for agendamento in agendamentos if agendamento.confirmado %}
+                        <tr>
+                            <td>{{ agendamento.nome }}</td>
+                            <td>{{ agendamento.telefone }}</td>
+                            <td>{{ agendamento.horario }}</td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="3" class="empty-message">Nenhum agendamento confirmado.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Todos -->
+        <div id="todos" class="tab-section" style="display: none;">
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Telefone</th>
+                            <th>Horário</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for agendamento in agendamentos %}
+                        <tr>
+                            <td>{{ agendamento.nome }}</td>
+                            <td>{{ agendamento.telefone }}</td>
+                            <td>{{ agendamento.horario }}</td>
+                            <td>{{ "Confirmado" if agendamento.confirmado else "Pendente" }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <a class="logout" href="/logout">Sair</a>
+    </div>
+</body>
+</html>

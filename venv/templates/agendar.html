@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendar Horário</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #1e1e2f;
+            color: #fff;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #29293d;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .logo {
+            width: 100px;
+            margin: 0 auto 20px;
+        }
+
+        .logo img {
+            width: 100%;
+            border-radius: 50%;
+            border: 3px solid #007bff;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            color: #bbb;
+            margin-bottom: 5px;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px;
+            font-size: 14px;
+            border: none;
+            border-radius: 5px;
+            background-color: #3a3a50;
+            color: #fff;
+            box-sizing: border-box;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border: 1px solid #007bff;
+            background-color: #444456;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .footer {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #bbb;
+        }
+
+        .error {
+            color: red;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+    </style>
+    <script>
+        const barbeiros = [
+            { id: 1, nome: "Felippe" },
+            { id: 2, nome: "João" },
+            { id: 3, nome: "Pedro" }
+        ];
+
+        const horariosOcupados = {
+            1: ["10:00", "14:00"],
+            2: ["11:00", "15:00"],
+            3: ["09:00", "13:00"]
+        };
+
+        function carregarHorarios() {
+            const barbeiroId = parseInt(document.getElementById("barbeiro").value);
+            const horarioInput = document.getElementById("horario");
+            const horariosDisponiveis = gerarHorariosFuncionamento().filter(
+                horario => !horariosOcupados[barbeiroId]?.includes(horario)
+            );
+
+            horarioInput.innerHTML = "";
+            horariosDisponiveis.forEach(horario => {
+                const option = document.createElement("option");
+                option.value = horario;
+                option.textContent = horario;
+                horarioInput.appendChild(option);
+            });
+        }
+
+        function gerarHorariosFuncionamento() {
+            const horarios = [];
+            for (let hora = 9; hora <= 22; hora++) {
+                horarios.push(`${hora.toString().padStart(2, "0")}:00`);
+                horarios.push(`${hora.toString().padStart(2, "0")}:30`);
+            }
+            return horarios;
+        }
+
+        function carregarBarbeiros() {
+            const barbeiroSelect = document.getElementById("barbeiro");
+            barbeiros.forEach(barbeiro => {
+                const option = document.createElement("option");
+                option.value = barbeiro.id;
+                option.textContent = barbeiro.nome;
+                barbeiroSelect.appendChild(option);
+            });
+            carregarHorarios();
+        }
+
+        window.onload = () => {
+            carregarBarbeiros();
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <!-- Exibir mensagens de erro, se existirem -->
+        {% if error %}
+        <p class="error">{{ error }}</p>
+        {% endif %}
+
+        <!-- Logo da Barbearia -->
+        <div class="logo">
+            <img src="https://via.placeholder.com/100" alt="Logo da Barbearia">
+        </div>
+
+        <h1>Agende seu horário</h1>
+
+        <!-- Formulário de agendamento -->
+        <form action="/agendar" method="post">
+            <div class="form-group">
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" name="nome" placeholder="Digite seu nome" required>
+            </div>
+            <div class="form-group">
+                <label for="telefone">Telefone:</label>
+                <input type="text" id="telefone" name="telefone" placeholder="Digite seu telefone" required>
+            </div>
+            <div class="form-group">
+                <label for="barbeiro">Escolha o barbeiro:</label>
+                <select id="barbeiro" name="barbeiro_id" onchange="carregarHorarios()" required>
+                    <option value="" disabled selected>Selecione um barbeiro</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="horario">Escolha o horário:</label>
+                <select id="horario" name="horario" required></select>
+            </div>
+            <button type="submit" class="btn">Agendar</button>
+        </form>
+
+        <!-- Rodapé -->
+        <div class="footer">
+            © 2025 Barbearia. Todos os direitos reservados.
+        </div>
+    </div>
+</body>
+</html>
