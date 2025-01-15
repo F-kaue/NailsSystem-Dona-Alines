@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, session
+import os
 
 app = Flask(__name__)
 app.secret_key = "chave_secreta"  # Necessária para usar sessões
@@ -13,9 +14,11 @@ barbeiros = [
 # Lista para armazenar os agendamentos
 agendamentos = []
 
+
 @app.route("/")
-def index():
+def home():
     return render_template("index.html")
+
 
 @app.route("/agendar", methods=["GET", "POST"])
 def agendar():
@@ -29,8 +32,8 @@ def agendar():
         # Validação de campos obrigatórios
         if not nome or not telefone or not horario or not barbeiro_id:
             return render_template(
-                "agendar.html", 
-                barbeiros=barbeiros, 
+                "agendar.html",
+                barbeiros=barbeiros,
                 error="Todos os campos são obrigatórios."
             )
 
@@ -38,8 +41,8 @@ def agendar():
         for agendamento in agendamentos:
             if agendamento["horario"] == horario and agendamento["barbeiro_id"] == int(barbeiro_id):
                 return render_template(
-                    "agendar.html", 
-                    barbeiros=barbeiros, 
+                    "agendar.html",
+                    barbeiros=barbeiros,
                     error="Já existe um agendamento nesse horário para o mesmo barbeiro."
                 )
 
@@ -57,10 +60,10 @@ def agendar():
         # Renderiza a página de confirmação
         barbeiro_nome = next(b["nome"] for b in barbeiros if b["id"] == int(barbeiro_id))
         return render_template(
-            "confirmacao.html", 
-            nome=nome, 
-            telefone=telefone, 
-            horario=horario, 
+            "confirmacao.html",
+            nome=nome,
+            telefone=telefone,
+            horario=horario,
             barbeiro=barbeiro_nome
         )
 
@@ -85,6 +88,7 @@ def login():
         return render_template("login.html", error="Usuário ou senha inválidos.")
     return render_template("login.html")
 
+
 @app.route("/admin")
 def admin():
     if not session.get("logged_in"):
@@ -97,10 +101,12 @@ def admin():
     agendamentos_barbeiro = [ag for ag in agendamentos if ag["barbeiro_id"] == barbeiro_id]
     return render_template("admin.html", nome=barbeiro_nome, agendamentos=agendamentos_barbeiro)
 
+
 @app.route("/logout")
 def logout():
     session.clear()
-    return redirect(url_for("index"))
+    return redirect(url_for("home"))
+
 
 @app.route("/confirmar/<int:agendamento_id>", methods=["POST"])
 def confirmar(agendamento_id):
@@ -122,5 +128,7 @@ def confirmar(agendamento_id):
         print(f"Erro ao confirmar agendamento: {e}")
         return "Erro ao confirmar agendamento.", 500
 
+
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))  # Pega a porta do ambiente ou usa 5000
+    app.run(host="0.0.0.0", port=port, debug=True)
