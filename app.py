@@ -1,5 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 import os
+import schedule
+import threading
+import time
 
 app = Flask(__name__)
 app.secret_key = "chave_secreta"  # Necessária para usar sessões
@@ -14,11 +17,24 @@ barbeiros = [
 # Lista para armazenar os agendamentos
 agendamentos = []
 
+# Função para zerar os agendamentos diariamente
+def resetar_agendamentos_diariamente():
+    global agendamentos
+    print("Resetando agendamentos...")
+    agendamentos = []  # Limpa a lista de agendamentos
+
+# Agendar a limpeza dos agendamentos diariamente às 00:00
+schedule.every().day.at("00:00").do(resetar_agendamentos_diariamente)
+
+# Função para rodar o agendador em um thread separado
+def iniciar_agendador():
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
 
 @app.route("/")
 def home():
     return render_template("index.html")
-
 
 @app.route("/agendar", methods=["GET", "POST"])
 def agendar():
@@ -70,7 +86,6 @@ def agendar():
     # Exibe o formulário de agendamento com a lista de barbeiros
     return render_template("agendar.html", barbeiros=barbeiros)
 
-
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
@@ -88,7 +103,6 @@ def login():
         return render_template("login.html", error="Usuário ou senha inválidos.")
     return render_template("login.html")
 
-
 @app.route("/admin")
 def admin():
     if not session.get("logged_in"):
@@ -101,12 +115,10 @@ def admin():
     agendamentos_barbeiro = [ag for ag in agendamentos if ag["barbeiro_id"] == barbeiro_id]
     return render_template("admin.html", nome=barbeiro_nome, agendamentos=agendamentos_barbeiro)
 
-
 @app.route("/logout")
 def logout():
     session.clear()
     return redirect(url_for("home"))
-
 
 @app.route("/confirmar/<int:agendamento_id>", methods=["POST"])
 def confirmar(agendamento_id):
@@ -128,7 +140,7 @@ def confirmar(agendamento_id):
         print(f"Erro ao confirmar agendamento: {e}")
         return "Erro ao confirmar agendamento.", 500
 
-
 if __name__ == "__main__":
+    threading.Thread(target=iniciar_agendador, daemon=True).start()
     port = int(os.environ.get("PORT", 5000))  # Pega a porta do ambiente ou usa 5000
     app.run(host="0.0.0.0", port=port, debug=True)

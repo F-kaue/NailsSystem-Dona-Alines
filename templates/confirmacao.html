@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #1e1e2f; /* Fundo escuro */
+            background-color: #1e1e2f;
             color: #fff;
             margin: 0;
             padding: 0;
@@ -15,22 +15,24 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            overflow: hidden;
         }
 
         .container {
-            background-color: #29293d; /* Fundo do cartão */
+            background: linear-gradient(145deg, #29293d, #1e1e2f);
             border-radius: 15px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
-            width: 100%;
+            width: 90%;
             max-width: 400px;
-            padding: 20px;
+            padding: 30px;
             text-align: center;
+            box-sizing: border-box;
         }
 
         h1 {
             font-size: 24px;
-            color: #4caf50; /* Verde de sucesso */
-            margin-bottom: 15px;
+            color: #4caf50;
+            margin-bottom: 20px;
         }
 
         p {
@@ -48,14 +50,18 @@
         }
 
         .btn {
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
             padding: 12px 20px;
-            font-size: 14px;
+            font-size: 16px;
             font-weight: bold;
             color: #fff;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: all 0.3s ease;
             text-decoration: none;
             text-align: center;
         }
@@ -66,6 +72,7 @@
 
         .btn-primary:hover {
             background-color: #0056b3;
+            transform: scale(1.05);
         }
 
         .btn-secondary {
@@ -74,6 +81,7 @@
 
         .btn-secondary:hover {
             background-color: #565e64;
+            transform: scale(1.05);
         }
 
         .btn-success {
@@ -82,6 +90,7 @@
 
         .btn-success:hover {
             background-color: #218838;
+            transform: scale(1.05);
         }
 
         .alert {
@@ -89,20 +98,34 @@
             color: #ff4747;
             margin: 15px 0;
         }
+
+        @media (min-width: 768px) {
+            body {
+                overflow: auto;
+            }
+
+            .container {
+                max-width: 600px;
+                padding: 40px;
+            }
+
+            h1 {
+                font-size: 32px;
+            }
+
+            .btn {
+                font-size: 18px;
+                padding: 15px;
+            }
+        }
     </style>
     <script>
-        // Função para copiar os detalhes para a área de transferência
         function copiarDetalhes() {
             const nome = "{{ nome }}";
             const telefone = "{{ telefone }}";
             const horario = "{{ horario }}";
 
-            const detalhes = `
-Nome: ${nome}
-Telefone: ${telefone}
-Horário: ${horario}
-            `;
-
+            const detalhes = `Nome: ${nome}\nTelefone: ${telefone}\nHorário: ${horario}`;
             navigator.clipboard.writeText(detalhes).then(() => {
                 alert("Detalhes do agendamento copiados para a área de transferência!");
             }).catch(err => {
@@ -110,11 +133,10 @@ Horário: ${horario}
             });
         }
 
-        // Função para compartilhar os detalhes no WhatsApp
         function compartilharWhatsApp() {
             const nome = "{{ nome }}";
             const barbeiro = "{{ barbeiro }}";
-            const telefone = "{{ 85992884178 }}";//colocar o telefone do barbeiro
+            const telefone = "85992884178";
             const horario = "{{ horario }}";
 
             const mensagem = `Olá, meu nome é ${nome}. Estou confirmando meu agendamento com o ${barbeiro} para às ${horario}. Obrigado!`;

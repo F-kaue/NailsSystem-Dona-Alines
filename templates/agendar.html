@@ -17,17 +17,18 @@
         }
 
         .container {
-            background-color: #29293d;
+            background: linear-gradient(145deg, #29293d, #1e1e2f);
             border-radius: 15px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
-            width: 100%;
+            width: 90%;
             max-width: 400px;
-            padding: 20px;
+            padding: 30px;
             text-align: center;
+            animation: fadeIn 1s ease-in-out;
         }
 
         .logo {
-            width: 100px;
+            width: 120px;
             margin: 0 auto 20px;
         }
 
@@ -39,7 +40,6 @@
 
         h1 {
             font-size: 24px;
-            color: #fff;
             margin-bottom: 20px;
         }
 
@@ -87,6 +87,7 @@
 
         .btn:hover {
             background-color: #0056b3;
+            transform: scale(1.05);
         }
 
         .footer {
@@ -96,9 +97,44 @@
         }
 
         .error {
-            color: red;
+            color: #ff4d4d;
             margin-bottom: 20px;
             font-size: 14px;
+        }
+
+        @media (min-width: 768px) {
+            body {
+                overflow: auto;
+            }
+
+            .container {
+                max-width: 600px;
+                padding: 40px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            .form-group input, .form-group select {
+                font-size: 16px;
+                padding: 15px;
+            }
+
+            .btn {
+                font-size: 18px;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
     </style>
     <script>
@@ -157,19 +193,16 @@
 </head>
 <body>
     <div class="container">
-        <!-- Exibir mensagens de erro, se existirem -->
         {% if error %}
         <p class="error">{{ error }}</p>
         {% endif %}
 
-        <!-- Logo da Barbearia -->
         <div class="logo">
-            <img src="https://via.placeholder.com/100" alt="Logo da Barbearia">
+            <img src="https://static.vecteezy.com/ti/vetor-gratis/p1/10071559-barbearia-logo-barbearia-logo-modelo-vetor.jpg" alt="Logo da Barbearia">
         </div>
 
         <h1>Agende seu horário</h1>
 
-        <!-- Formulário de agendamento -->
         <form action="/agendar" method="post">
             <div class="form-group">
                 <label for="nome">Nome:</label>
@@ -192,7 +225,6 @@
             <button type="submit" class="btn">Agendar</button>
         </form>
 
-        <!-- Rodapé -->
         <div class="footer">
             © 2025 Barbearia. Todos os direitos reservados.
         </div>

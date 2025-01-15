@@ -19,28 +19,30 @@
         }
 
         .container {
-            background-color: #29293d;
+            background: linear-gradient(145deg, #29293d, #1e1e2f);
             border-radius: 15px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
-            width: 100%;
+            width: 90%;
             max-width: 900px;
-            padding: 20px;
+            padding: 30px;
             text-align: center;
+            box-sizing: border-box;
         }
 
         h1 {
             font-size: 24px;
-            color: #fff;
+            color: #4caf50;
             margin-bottom: 20px;
         }
 
         .tabs {
             display: flex;
-            justify-content: space-around;
+            justify-content: space-between;
+            gap: 10px;
             margin-bottom: 20px;
             background-color: #3a3a50;
             border-radius: 10px;
-            overflow: hidden;
+            padding: 10px;
         }
 
         .tab {
@@ -52,6 +54,7 @@
             text-align: center;
             font-size: 14px;
             transition: background-color 0.3s ease;
+            border-radius: 5px;
         }
 
         .tab.active {
@@ -103,11 +106,12 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: all 0.3s ease;
         }
 
         .btn:hover {
             background-color: #0056b3;
+            transform: scale(1.05);
         }
 
         .empty-message {
@@ -132,11 +136,12 @@
             border-radius: 5px;
             color: #fff;
             text-decoration: none;
-            transition: background-color 0.3s ease;
+            transition: all 0.3s ease;
         }
 
         .logout:hover {
             background-color: #c82333;
+            transform: scale(1.05);
         }
 
         @media (max-width: 600px) {
@@ -157,7 +162,6 @@
         }
     </style>
     <script>
-        // Script para alternar entre as abas
         function showTab(tabId) {
             const tabs = document.querySelectorAll('.tab');
             const sections = document.querySelectorAll('.tab-section');
@@ -169,7 +173,6 @@
             document.querySelector(`[data-tab="${tabId}"]`).classList.add('active');
         }
 
-        // Mostrar a aba de pendentes por padrão
         document.addEventListener('DOMContentLoaded', () => {
             showTab('pendentes');
         });
@@ -178,15 +181,12 @@
 <body>
     <div class="container">
         <h1>Admin - Agendamentos</h1>
-
-        <!-- Abas de navegação -->
         <div class="tabs">
             <div class="tab active" data-tab="pendentes" onclick="showTab('pendentes')">Pendentes</div>
             <div class="tab" data-tab="confirmados" onclick="showTab('confirmados')">Confirmados</div>
             <div class="tab" data-tab="todos" onclick="showTab('todos')">Todos</div>
         </div>
 
-        <!-- Pendentes -->
         <div id="pendentes" class="tab-section">
             <div class="table-container">
                 <table>
@@ -220,7 +220,6 @@
             </div>
         </div>
 
-        <!-- Confirmados -->
         <div id="confirmados" class="tab-section" style="display: none;">
             <div class="table-container">
                 <table>
@@ -248,7 +247,6 @@
             </div>
         </div>
 
-        <!-- Todos -->
         <div id="todos" class="tab-section" style="display: none;">
             <div class="table-container">
                 <table>

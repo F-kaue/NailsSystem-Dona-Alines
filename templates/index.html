@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #1e1e2f; /* Fundo escuro */
+            background-color: #1e1e2f;
             color: #fff;
             margin: 0;
             padding: 0;
@@ -15,21 +15,24 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            overflow: hidden;
         }
 
         .container {
-            background-color: #29293d;
+            background: linear-gradient(145deg, #29293d, #1e1e2f);
             border-radius: 15px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
-            width: 100%;
+            width: 90%;
             max-width: 400px;
             padding: 30px;
             text-align: center;
+            box-sizing: border-box;
         }
 
         .logo {
-            width: 100px;
+            width: 120px;
             margin: 0 auto 20px;
+            animation: bounce 1.5s infinite;
         }
 
         .logo img {
@@ -39,13 +42,16 @@
         }
 
         h1 {
-            font-size: 28px;
+            font-size: 24px;
             color: #fff;
             margin-bottom: 20px;
         }
 
         .btn {
+            display: block;
             width: 100%;
+            max-width: 300px; /* Ajuste para botões proporcionais */
+            margin: 0 auto; /* Centralizar */
             padding: 15px;
             font-size: 16px;
             font-weight: bold;
@@ -54,18 +60,71 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: all 0.3s ease;
             margin-top: 10px;
+            text-decoration: none;
         }
 
         .btn:hover {
             background-color: #0056b3;
+            transform: scale(1.05);
         }
 
         .footer {
             margin-top: 20px;
             font-size: 12px;
             color: #bbb;
+        }
+
+        @media (min-width: 768px) {
+            body {
+                overflow: auto;
+            }
+
+            .container {
+                max-width: 600px;
+                padding: 40px;
+            }
+
+            h1 {
+                font-size: 32px;
+            }
+
+            .btn {
+                font-size: 18px;
+                padding: 15px 20px;
+            }
+        }
+
+        /* Animation */
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* Mobile First Design */
+        .container {
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .highlight {
+            color: #00d1b2;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -75,15 +134,14 @@
             <img src="https://static.vecteezy.com/ti/vetor-gratis/p1/10071559-barbearia-logo-barbearia-logo-modelo-vetor.jpg" alt="Logo da Barbearia">
         </div>
 
-        <h1>Bem-vindo à Barbearia</h1>
+        <h1>Seja bem-vindo à <span class="highlight">Barbearia</span></h1>
 
         <a href="/agendar" class="btn">Agendar um Horário</a>
         <a href="/login" class="btn">Área do Dono</a>
 
         <div class="footer">
-            © 2025 Barbearia. Todos os direitos reservados.
+            &copy; 2025 Barbearia. Todos os direitos reservados.
         </div>
     </div>
 </body>
 </html>
-

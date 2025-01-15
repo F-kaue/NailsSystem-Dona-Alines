@@ -9,25 +9,30 @@
             font-family: Arial, sans-serif;
             background-color: #1e1e2f;
             color: #fff;
+            margin: 0;
+            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            margin: 0;
+            overflow: hidden;
         }
 
         .container {
-            background-color: #29293d;
+            background: linear-gradient(145deg, #29293d, #1e1e2f);
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+            width: 90%;
+            max-width: 400px;
             padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
-            width: 100%;
-            max-width: 360px;
             text-align: center;
+            box-sizing: border-box;
+            animation: fadeIn 1s ease-in-out;
         }
 
         h1 {
             font-size: 24px;
+            color: #fff;
             margin-bottom: 20px;
         }
 
@@ -40,6 +45,7 @@
             display: block;
             font-size: 14px;
             margin-bottom: 8px;
+            color: #bbb;
         }
 
         .form-group input {
@@ -56,22 +62,28 @@
         .form-group input:focus {
             border: 1px solid #007bff;
             outline: none;
+            background-color: #46465e;
         }
 
         .btn {
+            display: block;
             width: 100%;
             padding: 12px;
             font-size: 16px;
+            font-weight: bold;
             color: #fff;
             background-color: #007bff;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            text-decoration: none;
         }
 
         .btn:hover {
             background-color: #0056b3;
+            transform: scale(1.05);
         }
 
         .error {
@@ -79,14 +91,49 @@
             margin-bottom: 20px;
             font-size: 14px;
         }
+
+        @media (min-width: 768px) {
+            body {
+                overflow: auto;
+            }
+
+            .container {
+                max-width: 600px;
+                padding: 40px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            .form-group input {
+                font-size: 16px;
+                padding: 15px;
+            }
+
+            .btn {
+                font-size: 18px;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Login - Barbearia</h1>
-        {% if error %}
-        <div class="error">{{ error }}</div>
-        {% endif %}
+        <!-- Error Message -->
+        <div class="error" style="display: none;">Login ou senha incorretos.</div>
         <form action="/login" method="post">
             <div class="form-group">
                 <label for="login">Login:</label>
