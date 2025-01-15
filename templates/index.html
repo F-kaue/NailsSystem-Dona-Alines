@@ -48,21 +48,20 @@
         }
 
         .btn {
-            display: block;
-            width: 100%;
-            max-width: 300px; /* Ajuste para botões proporcionais */
-            margin: 0 auto; /* Centralizar */
-            padding: 15px;
-            font-size: 16px;
-            font-weight: bold;
-            color: #fff;
-            background-color: #007bff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 10px;
-            text-decoration: none;
+        display: block;
+        width: 100%; /* Garante que o botão se adapta à largura do contêiner */
+        padding: 15px;
+        font-size: 16px;
+        font-weight: bold;
+        color: #fff;
+        background-color: #007bff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 10px;
+        text-decoration: none;
+        box-sizing: border-box; /* Inclui o padding dentro da largura total */
         }
 
         .btn:hover {
@@ -91,8 +90,9 @@
             }
 
             .btn {
-                font-size: 18px;
-                padding: 15px 20px;
+            font-size: 18px;
+            padding: 15px 20px;
+            width: auto; /* Permite que o botão tenha tamanho automático em telas maiores */
             }
         }
 
