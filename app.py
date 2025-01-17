@@ -3,6 +3,7 @@ import os
 import schedule
 import threading
 import time
+import requests  # Adicionada para fazer as requisições de auto-ping
 
 app = Flask(__name__)
 app.secret_key = "chave_secreta"  # Necessária para usar sessões
@@ -10,8 +11,6 @@ app.secret_key = "chave_secreta"  # Necessária para usar sessões
 # Lista de barbeiros simulando uma base de dados
 barbeiros = [
     {"id": 1, "nome": "Aline", "login": "aline", "senha": "0810De2013"},
-    # {"id": 2, "nome": "João", "login": "joao", "senha": "5678"},
-    # {"id": 3, "nome": "Pedro", "login": "pedro", "senha": "abcd"}
 ]
 
 # Lista para armazenar os agendamentos
@@ -31,6 +30,24 @@ def iniciar_agendador():
     while True:
         schedule.run_pending()
         time.sleep(1)
+
+# -------------------------------
+# Função para manter o site ativo
+# -------------------------------
+def manter_site_ativo():
+    site_url = "https://vantorinninails.onrender.com/"  # Substitua pela URL do seu site
+    while True:
+        try:
+            response = requests.get(site_url)
+            print(f"[KEEP-ALIVE] Site pingado com sucesso: {response.status_code}")
+        except Exception as e:
+            print(f"[KEEP-ALIVE] Erro ao pingar o site: {e}")
+        time.sleep(14 * 60)  # Pingar a cada 14 minutos
+
+@app.route("/ping")
+def ping():
+    return "Ping bem-sucedido!", 200
+# -------------------------------
 
 @app.route("/")
 def home():
@@ -59,7 +76,7 @@ def agendar():
                 return render_template(
                     "agendar.html",
                     barbeiros=barbeiros,
-                    error="Já existe um agendamento nesse horário para o mesmo Nail Designer ."
+                    error="Já existe um agendamento nesse horário para o mesmo Nail Designer."
                 )
 
         # Adicionar o agendamento à lista
@@ -141,6 +158,9 @@ def confirmar(agendamento_id):
         return "Erro ao confirmar agendamento.", 500
 
 if __name__ == "__main__":
+    # Inicia as threads para o agendador e o auto-ping
     threading.Thread(target=iniciar_agendador, daemon=True).start()
+    threading.Thread(target=manter_site_ativo, daemon=True).start()
+    
     port = int(os.environ.get("PORT", 5000))  # Pega a porta do ambiente ou usa 5000
     app.run(host="0.0.0.0", port=port, debug=True)
