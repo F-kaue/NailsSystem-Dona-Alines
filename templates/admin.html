@@ -1,183 +1,184 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - Agendamentos</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #1e1e2f;
-            color: #fff;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            flex-direction: column;
-        }
-
-        .container {
-            background: linear-gradient(145deg, #29293d, #1e1e2f);
-            border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
-            width: 90%;
-            max-width: 900px;
-            padding: 30px;
-            text-align: center;
-            box-sizing: border-box;
-        }
-
-        h1 {
-            font-size: 24px;
-            color: #4caf50;
-            margin-bottom: 20px;
-        }
-
-        .tabs {
-            display: flex;
-            justify-content: space-between;
-            gap: 10px;
-            margin-bottom: 20px;
-            background-color: #3a3a50;
-            border-radius: 10px;
-            padding: 10px;
-        }
-
-        .tab {
-            flex: 1;
-            padding: 10px;
-            cursor: pointer;
-            background-color: #444456;
-            color: #bbb;
-            text-align: center;
-            font-size: 14px;
-            transition: background-color 0.3s ease;
-            border-radius: 5px;
-        }
-
-        .tab.active {
-            background-color: #007bff;
-            color: #fff;
-        }
-
-        .table-container {
-            margin-top: 20px;
-            overflow-x: auto;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background-color: #3a3a50;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        th, td {
-            padding: 12px;
-            text-align: center;
-            color: #fff;
-        }
-
-        th {
-            background-color: #444456;
-            font-size: 14px;
-            font-weight: bold;
-        }
-
-        td {
-            background-color: #3a3a50;
-            border-bottom: 1px solid #444456;
-        }
-
-        td:last-child {
-            display: flex;
-            justify-content: center;
-        }
-
-        .btn {
-            padding: 10px 15px;
-            font-size: 14px;
-            font-weight: bold;
-            color: #fff;
-            background-color: #007bff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .btn:hover {
-            background-color: #0056b3;
-            transform: scale(1.05);
-        }
-
-        .empty-message {
-            margin: 20px 0;
-            font-size: 16px;
-            color: #bbb;
-        }
-
-        .footer {
-            margin-top: 20px;
-            font-size: 12px;
-            color: #bbb;
-        }
-
-        .logout {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 14px;
-            background-color: #dc3545;
-            border: none;
-            border-radius: 5px;
-            color: #fff;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .logout:hover {
-            background-color: #c82333;
-            transform: scale(1.05);
-        }
-
-        @media (max-width: 600px) {
-            th, td {
-                font-size: 12px;
-                padding: 8px;
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Admin - Agendamentos</title>
+        <style>
+            body {
+                font-family: 'Arial', sans-serif;
+                background-color: #ffe4e6; /* Fundo rosa claro */
+                color: #333; /* Texto escuro para contraste */
+                margin: 0;
+                padding: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 100vh;
+                flex-direction: column;
             }
-
-            .btn {
-                padding: 8px 12px;
-                font-size: 12px;
+    
+            .container {
+                background: linear-gradient(145deg, #f8d7da, #f1c1c8); /* Gradiente em tons de rosa */
+                border-radius: 15px;
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+                width: 90%;
+                max-width: 900px;
+                padding: 30px;
+                text-align: center;
+                box-sizing: border-box;
             }
-
+    
+            h1 {
+                font-size: 24px;
+                color: #ff69b4; /* Rosa vibrante */
+                margin-bottom: 20px;
+            }
+    
+            .tabs {
+                display: flex;
+                justify-content: space-between;
+                gap: 10px;
+                margin-bottom: 20px;
+                background-color: #f8d7da; /* Rosa claro */
+                border-radius: 10px;
+                padding: 10px;
+            }
+    
             .tab {
-                font-size: 12px;
-                padding: 8px;
+                flex: 1;
+                padding: 10px;
+                cursor: pointer;
+                background-color: #f1c1c8; /* Rosa médio */
+                color: #333;
+                text-align: center;
+                font-size: 14px;
+                transition: background-color 0.3s ease;
+                border-radius: 5px;
             }
-        }
-    </style>
-    <script>
-        function showTab(tabId) {
-            const tabs = document.querySelectorAll('.tab');
-            const sections = document.querySelectorAll('.tab-section');
-
-            tabs.forEach(tab => tab.classList.remove('active'));
-            sections.forEach(section => section.style.display = 'none');
-
-            document.getElementById(tabId).style.display = 'block';
-            document.querySelector(`[data-tab="${tabId}"]`).classList.add('active');
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            showTab('pendentes');
-        });
-    </script>
-</head>
+    
+            .tab.active {
+                background-color: #ff69b4; /* Rosa vibrante */
+                color: #fff;
+            }
+    
+            .table-container {
+                margin-top: 20px;
+                overflow-x: auto;
+            }
+    
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                background-color: #f8d7da;
+                border-radius: 10px;
+                overflow: hidden;
+            }
+    
+            th, td {
+                padding: 12px;
+                text-align: center;
+                color: #333;
+            }
+    
+            th {
+                background-color: #f1c1c8;
+                font-size: 14px;
+                font-weight: bold;
+            }
+    
+            td {
+                background-color: #ffe4e6;
+                border-bottom: 1px solid #f1c1c8;
+            }
+    
+            td:last-child {
+                display: flex;
+                justify-content: center;
+            }
+    
+            .btn {
+                padding: 10px 15px;
+                font-size: 14px;
+                font-weight: bold;
+                color: #fff;
+                background-color: #ff69b4; /* Rosa vibrante */
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+            }
+    
+            .btn:hover {
+                background-color: #ff4784; /* Rosa mais escuro */
+                transform: scale(1.05);
+            }
+    
+            .empty-message {
+                margin: 20px 0;
+                font-size: 16px;
+                color: #666;
+            }
+    
+            .footer {
+                margin-top: 20px;
+                font-size: 12px;
+                color: #666;
+            }
+    
+            .logout {
+                display: inline-block;
+                margin-top: 20px;
+                padding: 10px 20px;
+                font-size: 14px;
+                background-color: #dc3545; /* Vermelho para logout */
+                border: none;
+                border-radius: 5px;
+                color: #fff;
+                text-decoration: none;
+                transition: all 0.3s ease;
+            }
+    
+            .logout:hover {
+                background-color: #c82333;
+                transform: scale(1.05);
+            }
+    
+            @media (max-width: 600px) {
+                th, td {
+                    font-size: 12px;
+                    padding: 8px;
+                }
+    
+                .btn {
+                    padding: 8px 12px;
+                    font-size: 12px;
+                }
+    
+                .tab {
+                    font-size: 12px;
+                    padding: 8px;
+                }
+            }
+        </style>
+        <script>
+            function showTab(tabId) {
+                const tabs = document.querySelectorAll('.tab');
+                const sections = document.querySelectorAll('.tab-section');
+    
+                tabs.forEach(tab => tab.classList.remove('active'));
+                sections.forEach(section => section.style.display = 'none');
+    
+                document.getElementById(tabId).style.display = 'block';
+                document.querySelector(`[data-tab="${tabId}"]`).classList.add('active');
+            }
+    
+            document.addEventListener('DOMContentLoaded', () => {
+                showTab('pendentes');
+            });
+        </script>
+    </head>
+    
 <body>
     <div class="container">
         <h1>Admin - Agendamentos</h1>

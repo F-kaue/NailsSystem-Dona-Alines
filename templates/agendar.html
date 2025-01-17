@@ -1,196 +1,194 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agendar Horário</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #1e1e2f;
-            color: #fff;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        .container {
-            background: linear-gradient(145deg, #29293d, #1e1e2f);
-            border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
-            width: 90%;
-            max-width: 400px;
-            padding: 30px;
-            text-align: center;
-            animation: fadeIn 1s ease-in-out;
-        }
-
-        .logo {
-            width: 120px;
-            margin: 0 auto 20px;
-        }
-
-        .logo img {
-            width: 100%;
-            border-radius: 50%;
-            border: 3px solid #007bff;
-        }
-
-        h1 {
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-            text-align: left;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 14px;
-            color: #bbb;
-            margin-bottom: 5px;
-        }
-
-        .form-group input, .form-group select {
-            width: 100%;
-            padding: 12px;
-            font-size: 14px;
-            border: none;
-            border-radius: 5px;
-            background-color: #3a3a50;
-            color: #fff;
-            box-sizing: border-box;
-        }
-
-        .form-group input:focus, .form-group select:focus {
-            outline: none;
-            border: 1px solid #007bff;
-            background-color: #444456;
-        }
-
-        .btn {
-            width: 100%;
-            padding: 12px;
-            font-size: 16px;
-            font-weight: bold;
-            color: #fff;
-            background-color: #007bff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .btn:hover {
-            background-color: #0056b3;
-            transform: scale(1.05);
-        }
-
-        .footer {
-            margin-top: 20px;
-            font-size: 12px;
-            color: #bbb;
-        }
-
-        .error {
-            color: #ff4d4d;
-            margin-bottom: 20px;
-            font-size: 14px;
-        }
-
-        @media (min-width: 768px) {
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Agendar Horário</title>
+        <style>
             body {
-                overflow: auto;
+                font-family: 'Arial', sans-serif;
+                background-color: #ffe4e6; /* Rosa claro */
+                color: #fff;
+                margin: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
             }
-
+    
             .container {
-                max-width: 600px;
-                padding: 40px;
+                background: linear-gradient(145deg, #f8d7da, #f1c1c8); /* Gradiente em tons de rosa */
+                border-radius: 15px;
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+                width: 90%;
+                max-width: 400px;
+                padding: 30px;
+                text-align: center;
+                animation: fadeIn 1s ease-in-out;
             }
-
+    
+            .logo {
+                width: 120px;
+                margin: 0 auto 20px;
+            }
+    
+            .logo img {
+                width: 100%;
+                border-radius: 50%;
+                border: 3px solid #ff69b4; /* Rosa vibrante */
+            }
+    
             h1 {
-                font-size: 28px;
+                font-size: 24px;
+                margin-bottom: 20px;
+                color: #ff69b4; /* Rosa vibrante */
             }
-
+    
+            .form-group {
+                margin-bottom: 20px;
+                text-align: left;
+            }
+    
+            .form-group label {
+                display: block;
+                font-size: 14px;
+                color: #333;
+                margin-bottom: 5px;
+            }
+    
             .form-group input, .form-group select {
-                font-size: 16px;
-                padding: 15px;
+                width: 100%;
+                padding: 12px;
+                font-size: 14px;
+                border: none;
+                border-radius: 5px;
+                background-color: #f3e0e3; /* Rosa claro */
+                color: #333;
+                box-sizing: border-box;
             }
-
+    
+            .form-group input:focus, .form-group select:focus {
+                outline: none;
+                border: 1px solid #ff69b4; /* Rosa vibrante */
+                background-color: #f7d1db;
+            }
+    
             .btn {
-                font-size: 18px;
+                width: 100%;
+                padding: 12px;
+                font-size: 16px;
+                font-weight: bold;
+                color: #fff;
+                background-color: #ff69b4; /* Rosa vibrante */
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
             }
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: scale(0.9);
+    
+            .btn:hover {
+                background-color: #ff4784; /* Rosa mais escuro */
+                transform: scale(1.05);
             }
-            to {
-                opacity: 1;
-                transform: scale(1);
+    
+            .footer {
+                margin-top: 20px;
+                font-size: 12px;
+                color: #999;
             }
-        }
-    </style>
-    <script>
-        const barbeiros = [
-            { id: 1, nome: "Felippe" },
-            { id: 2, nome: "João" },
-            { id: 3, nome: "Pedro" }
-        ];
-
-        const horariosOcupados = {
-            1: ["10:00", "14:00"],
-            2: ["11:00", "15:00"],
-            3: ["09:00", "13:00"]
-        };
-
-        function carregarHorarios() {
-            const barbeiroId = parseInt(document.getElementById("barbeiro").value);
-            const horarioInput = document.getElementById("horario");
-            const horariosDisponiveis = gerarHorariosFuncionamento().filter(
-                horario => !horariosOcupados[barbeiroId]?.includes(horario)
-            );
-
-            horarioInput.innerHTML = "";
-            horariosDisponiveis.forEach(horario => {
-                const option = document.createElement("option");
-                option.value = horario;
-                option.textContent = horario;
-                horarioInput.appendChild(option);
-            });
-        }
-
-        function gerarHorariosFuncionamento() {
-            const horarios = [];
-            for (let hora = 9; hora <= 22; hora++) {
-                horarios.push(`${hora.toString().padStart(2, "0")}:00`);
-                horarios.push(`${hora.toString().padStart(2, "0")}:30`);
+    
+            .error {
+                color: #ff4d4d;
+                margin-bottom: 20px;
+                font-size: 14px;
             }
-            return horarios;
-        }
-
-        function carregarBarbeiros() {
-            const barbeiroSelect = document.getElementById("barbeiro");
-            barbeiros.forEach(barbeiro => {
-                const option = document.createElement("option");
-                option.value = barbeiro.id;
-                option.textContent = barbeiro.nome;
-                barbeiroSelect.appendChild(option);
-            });
-            carregarHorarios();
-        }
-
-        window.onload = () => {
-            carregarBarbeiros();
-        };
-    </script>
-</head>
+    
+            @media (min-width: 768px) {
+                body {
+                    overflow: auto;
+                }
+    
+                .container {
+                    max-width: 600px;
+                    padding: 40px;
+                }
+    
+                h1 {
+                    font-size: 28px;
+                }
+    
+                .form-group input, .form-group select {
+                    font-size: 16px;
+                    padding: 15px;
+                }
+    
+                .btn {
+                    font-size: 18px;
+                }
+            }
+    
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: scale(0.9);
+                }
+                to {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+            }
+        </style>
+        <script>
+            const barbeiros = [
+                { id: 1, nome: "Aline" },
+            ];
+    
+            const horariosOcupados = {
+                1: ["10:00", "14:00"],
+            };
+    
+            function carregarHorarios() {
+                const barbeiroId = parseInt(document.getElementById("barbeiro").value);
+                const horarioInput = document.getElementById("horario");
+                const horariosDisponiveis = gerarHorariosFuncionamento().filter(
+                    horario => !horariosOcupados[barbeiroId]?.includes(horario)
+                );
+    
+                horarioInput.innerHTML = "";
+                horariosDisponiveis.forEach(horario => {
+                    const option = document.createElement("option");
+                    option.value = horario;
+                    option.textContent = horario;
+                    horarioInput.appendChild(option);
+                });
+            }
+    
+            function gerarHorariosFuncionamento() {
+                const horarios = [];
+                for (let hora = 9; hora <= 22; hora++) {
+                    horarios.push(`${hora.toString().padStart(2, "0")}:00`);
+                    horarios.push(`${hora.toString().padStart(2, "0")}:30`);
+                }
+                return horarios;
+            }
+    
+            function carregarBarbeiros() {
+                const barbeiroSelect = document.getElementById("barbeiro");
+                barbeiros.forEach(barbeiro => {
+                    const option = document.createElement("option");
+                    option.value = barbeiro.id;
+                    option.textContent = barbeiro.nome;
+                    barbeiroSelect.appendChild(option);
+                });
+                carregarHorarios();
+            }
+    
+            window.onload = () => {
+                carregarBarbeiros();
+            };
+        </script>
+    </head>
+    
 <body>
     <div class="container">
         {% if error %}
@@ -198,7 +196,7 @@
         {% endif %}
 
         <div class="logo">
-            <img src="https://static.vecteezy.com/ti/vetor-gratis/p1/10071559-barbearia-logo-barbearia-logo-modelo-vetor.jpg" alt="Logo da Barbearia">
+            <img src="https://d.rapidcdn.app/snapinsta?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJodHRwczovL3Njb250ZW50LWFybjItMS5jZG5pbnN0YWdyYW0uY29tL3YvdDUxLjI5MzUwLTE1LzIyMDk2NDczNF80MjgwODQ3MTE1NzIzMTlfODc0NzE3ODE2OTE0NjkxOTU0OF9uLmpwZz9zdHA9ZHN0LWpwZ19lMzVfczY0MHg2NDBfc2gwLjA4X3R0NiZlZmc9ZXlKMlpXNWpiMlJsWDNSaFp5STZJbWx0WVdkbFgzVnliR2RsYmk0M05URjROelV4TG5Oa2NpNW1Namt6TlRBdVpHVm1ZWFZzZEY5cGJXRm5aU0o5Jl9uY19odD1zY29udGVudC1hcm4yLTEuY2RuaW5zdGFncmFtLmNvbSZfbmNfY2F0PTExMSZfbmNfb2hjPWtoa3dTTFJPbDB3UTdrTnZnRUNsSHQxJl9uY19naWQ9MDEwYWQ5M2VkZGIyNDk3NTkzNTU1ZWE3ZmRjOTdlNjMmZWRtPUFQczE3Q1VCQUFBQSZjY2I9Ny01Jm9oPTAwX0FZQVpEbEtMbndVTGZGTDZKRF80MmhHUmVWbUNkV2xtLTBDdEV0c1d5WWlNeFEmb2U9Njc5MDM1MkImX25jX3NpZD0xMGQxM2IiLCJmaWxlbmFtZSI6IlNuYXBpbnN0LmFwcF90aHVtYl8yMjA5NjQ3MzRfNDI4MDg0NzExNTcyMzE5Xzg3NDcxNzgxNjkxNDY5MTk1NDhfbi5qcGcifQ.4xZOA3sGr2yFQHjhwILss8nwpV-Dc7aJkyTVZ1X7jgE" alt="Logo da Barbearia">
         </div>
 
         <h1>Agende seu horário</h1>
@@ -213,9 +211,9 @@
                 <input type="text" id="telefone" name="telefone" placeholder="Digite seu telefone" required>
             </div>
             <div class="form-group">
-                <label for="barbeiro">Escolha o barbeiro:</label>
+                <label for="barbeiro">Escolha o Nail Designer:</label>
                 <select id="barbeiro" name="barbeiro_id" onchange="carregarHorarios()" required>
-                    <option value="" disabled selected>Selecione um barbeiro</option>
+                    <option value="" disabled selected>Selecione um Nail Designer</option>
                 </select>
             </div>
             <div class="form-group">

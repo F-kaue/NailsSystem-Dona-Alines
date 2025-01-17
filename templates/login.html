@@ -1,137 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Barbearia</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #1e1e2f;
-            color: #fff;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            overflow: hidden;
-        }
-
-        .container {
-            background: linear-gradient(145deg, #29293d, #1e1e2f);
-            border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
-            width: 90%;
-            max-width: 400px;
-            padding: 30px;
-            text-align: center;
-            box-sizing: border-box;
-            animation: fadeIn 1s ease-in-out;
-        }
-
-        h1 {
-            font-size: 24px;
-            color: #fff;
-            margin-bottom: 20px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-            text-align: left;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 14px;
-            margin-bottom: 8px;
-            color: #bbb;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 12px;
-            font-size: 14px;
-            border: none;
-            border-radius: 5px;
-            background-color: #3a3a50;
-            color: #fff;
-            box-sizing: border-box;
-        }
-
-        .form-group input:focus {
-            border: 1px solid #007bff;
-            outline: none;
-            background-color: #46465e;
-        }
-
-        .btn {
-            display: block;
-            width: 100%;
-            padding: 12px;
-            font-size: 16px;
-            font-weight: bold;
-            color: #fff;
-            background-color: #007bff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 10px;
-            text-decoration: none;
-        }
-
-        .btn:hover {
-            background-color: #0056b3;
-            transform: scale(1.05);
-        }
-
-        .error {
-            color: #ff4d4d;
-            margin-bottom: 20px;
-            font-size: 14px;
-        }
-
-        @media (min-width: 768px) {
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Login - Nails Design</title>
+        <style>
             body {
-                overflow: auto;
+                font-family: Arial, sans-serif;
+                background-color: #ffe4e6; /* Fundo rosa claro */
+                color: #333; /* Texto escuro para contraste */
+                margin: 0;
+                padding: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                overflow: hidden;
             }
-
+    
             .container {
-                max-width: 600px;
-                padding: 40px;
+                background: linear-gradient(145deg, #f8d7da, #f1c1c8); /* Gradiente em tons de rosa */
+                border-radius: 15px;
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+                width: 90%;
+                max-width: 400px;
+                padding: 30px;
+                text-align: center;
+                box-sizing: border-box;
+                animation: fadeIn 1s ease-in-out;
             }
-
+    
             h1 {
-                font-size: 28px;
+                font-size: 24px;
+                color: #ff69b4; /* Rosa vibrante */
+                margin-bottom: 20px;
             }
-
+    
+            .form-group {
+                margin-bottom: 20px;
+                text-align: left;
+            }
+    
+            .form-group label {
+                display: block;
+                font-size: 14px;
+                margin-bottom: 8px;
+                color: #555; /* Cinza escuro */
+            }
+    
             .form-group input {
-                font-size: 16px;
-                padding: 15px;
+                width: 100%;
+                padding: 12px;
+                font-size: 14px;
+                border: none;
+                border-radius: 5px;
+                background-color: #ffecec; /* Rosa claro */
+                color: #333; /* Texto escuro */
+                box-sizing: border-box;
             }
-
+    
+            .form-group input:focus {
+                border: 1px solid #ff69b4; /* Rosa vibrante */
+                outline: none;
+                background-color: #ffd6db; /* Rosa mais escuro */
+            }
+    
             .btn {
-                font-size: 18px;
+                display: block;
+                width: 100%;
+                padding: 12px;
+                font-size: 16px;
+                font-weight: bold;
+                color: #fff;
+                background-color: #ff69b4; /* Rosa vibrante */
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                margin-top: 10px;
+                text-decoration: none;
             }
-        }
-
-        /* Animation */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: scale(0.9);
+    
+            .btn:hover {
+                background-color: #ff4784; /* Rosa mais escuro */
+                transform: scale(1.05);
             }
-            to {
-                opacity: 1;
-                transform: scale(1);
+    
+            .error {
+                color: #ff4d4d; /* Vermelho para mensagens de erro */
+                margin-bottom: 20px;
+                font-size: 14px;
             }
-        }
-    </style>
-</head>
+    
+            @media (min-width: 768px) {
+                body {
+                    overflow: auto;
+                }
+    
+                .container {
+                    max-width: 600px;
+                    padding: 40px;
+                }
+    
+                h1 {
+                    font-size: 28px;
+                }
+    
+                .form-group input {
+                    font-size: 16px;
+                    padding: 15px;
+                }
+    
+                .btn {
+                    font-size: 18px;
+                }
+            }
+    
+            /* Animation */
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: scale(0.9);
+                }
+                to {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+            }
+        </style>
+    </head>
+    
 <body>
     <div class="container">
-        <h1>Login - Barbearia</h1>
+        <h1>Login - Vantorinni Nails</h1>
         <!-- Error Message -->
         <div class="error" style="display: none;">Login ou senha incorretos.</div>
         <form action="/login" method="post">

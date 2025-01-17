@@ -1,150 +1,152 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Confirmação de Agendamento</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #1e1e2f;
-            color: #fff;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            overflow: hidden;
-        }
-
-        .container {
-            background: linear-gradient(145deg, #29293d, #1e1e2f);
-            border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
-            width: 90%;
-            max-width: 400px;
-            padding: 30px;
-            text-align: center;
-            box-sizing: border-box;
-        }
-
-        h1 {
-            font-size: 24px;
-            color: #4caf50;
-            margin-bottom: 20px;
-        }
-
-        p {
-            font-size: 16px;
-            color: #ddd;
-            margin: 10px 0;
-        }
-
-        .buttons {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        .btn {
-            display: block;
-            width: 100%;
-            max-width: 300px;
-            margin: 0 auto;
-            padding: 12px 20px;
-            font-size: 16px;
-            font-weight: bold;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            text-align: center;
-        }
-
-        .btn-primary {
-            background-color: #007bff;
-        }
-
-        .btn-primary:hover {
-            background-color: #0056b3;
-            transform: scale(1.05);
-        }
-
-        .btn-secondary {
-            background-color: #6c757d;
-        }
-
-        .btn-secondary:hover {
-            background-color: #565e64;
-            transform: scale(1.05);
-        }
-
-        .btn-success {
-            background-color: #28a745;
-        }
-
-        .btn-success:hover {
-            background-color: #218838;
-            transform: scale(1.05);
-        }
-
-        .alert {
-            font-size: 14px;
-            color: #ff4747;
-            margin: 15px 0;
-        }
-
-        @media (min-width: 768px) {
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Confirmação de Agendamento</title>
+        <style>
             body {
-                overflow: auto;
+                font-family: 'Arial', sans-serif;
+                background-color: #ffe4e6; /* Fundo em rosa claro */
+                color: #fff;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                overflow: hidden;
             }
-
+    
             .container {
-                max-width: 600px;
-                padding: 40px;
+                background: linear-gradient(145deg, #f8d7da, #f1c1c8); /* Gradiente em tons de rosa */
+                border-radius: 15px;
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+                width: 90%;
+                max-width: 400px;
+                padding: 30px;
+                text-align: center;
+                box-sizing: border-box;
             }
-
+    
             h1 {
-                font-size: 32px;
+                font-size: 24px;
+                color: #ff69b4; /* Rosa vibrante */
+                margin-bottom: 20px;
             }
-
+    
+            p {
+                font-size: 16px;
+                color: #333; /* Cinza escuro para contraste */
+                margin: 10px 0;
+            }
+    
+            .buttons {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+                margin-top: 20px;
+            }
+    
             .btn {
-                font-size: 18px;
-                padding: 15px;
+                display: block;
+                width: 100%;
+                max-width: 300px;
+                margin: 0 auto;
+                padding: 12px 20px;
+                font-size: 16px;
+                font-weight: bold;
+                color: #fff;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                text-decoration: none;
+                text-align: center;
             }
-        }
-    </style>
-    <script>
-        function copiarDetalhes() {
-            const nome = "{{ nome }}";
-            const telefone = "{{ telefone }}";
-            const horario = "{{ horario }}";
-
-            const detalhes = `Nome: ${nome}\nTelefone: ${telefone}\nHorário: ${horario}`;
-            navigator.clipboard.writeText(detalhes).then(() => {
-                alert("Detalhes do agendamento copiados para a área de transferência!");
-            }).catch(err => {
-                console.error("Erro ao copiar os detalhes: ", err);
-            });
-        }
-
-        function compartilharWhatsApp() {
-            const nome = "{{ nome }}";
-            const barbeiro = "{{ barbeiro }}";
-            const telefone = "85992884178";
-            const horario = "{{ horario }}";
-
-            const mensagem = `Olá, meu nome é ${nome}. Estou confirmando meu agendamento com o ${barbeiro} para às ${horario}. Obrigado!`;
-            const url = `https://wa.me/55${telefone}?text=${encodeURIComponent(mensagem)}`;
-            window.open(url, "_blank");
-        }
-    </script>
-</head>
+    
+            .btn-primary {
+                background-color: #ff69b4; /* Rosa vibrante */
+            }
+    
+            .btn-primary:hover {
+                background-color: #ff4784; /* Rosa mais escuro */
+                transform: scale(1.05);
+            }
+    
+            .btn-secondary {
+                background-color: #f3e0e3; /* Rosa claro */
+                color: #333; /* Texto em cinza escuro */
+            }
+    
+            .btn-secondary:hover {
+                background-color: #f7d1db;
+                transform: scale(1.05);
+            }
+    
+            .btn-success {
+                background-color: #ff85a1; /* Rosa intermediário */
+            }
+    
+            .btn-success:hover {
+                background-color: #ff6080;
+                transform: scale(1.05);
+            }
+    
+            .alert {
+                font-size: 14px;
+                color: #ff4d4d; /* Vermelho para alertas */
+                margin: 15px 0;
+            }
+    
+            @media (min-width: 768px) {
+                body {
+                    overflow: auto;
+                }
+    
+                .container {
+                    max-width: 600px;
+                    padding: 40px;
+                }
+    
+                h1 {
+                    font-size: 32px;
+                }
+    
+                .btn {
+                    font-size: 18px;
+                    padding: 15px;
+                }
+            }
+        </style>
+        <script>
+            function copiarDetalhes() {
+                const nome = "{{ nome }}";
+                const telefone = "{{ telefone }}";
+                const horario = "{{ horario }}";
+    
+                const detalhes = `Nome: ${nome}\nTelefone: ${telefone}\nHorário: ${horario}`;
+                navigator.clipboard.writeText(detalhes).then(() => {
+                    alert("Detalhes do agendamento copiados para a área de transferência!");
+                }).catch(err => {
+                    console.error("Erro ao copiar os detalhes: ", err);
+                });
+            }
+    
+            function compartilharWhatsApp() {
+                const nome = "{{ nome }}";
+                const barbeiro = "{{ barbeiro }}";
+                const telefone = "85981177196";
+                const horario = "{{ horario }}";
+    
+                const mensagem = `Olá, meu nome é ${nome}. Estou confirmando meu agendamento com o ${barbeiro} para às ${horario}. Obrigado!`;
+                const url = `https://wa.me/55${telefone}?text=${encodeURIComponent(mensagem)}`;
+                window.open(url, "_blank");
+            }
+        </script>
+    </head>
+    
 <body>
     <div class="container">
         <h1>Agendamento Confirmado!</h1>

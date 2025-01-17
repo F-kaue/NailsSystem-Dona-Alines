@@ -9,9 +9,9 @@ app.secret_key = "chave_secreta"  # Necessária para usar sessões
 
 # Lista de barbeiros simulando uma base de dados
 barbeiros = [
-    {"id": 1, "nome": "Felippe", "login": "felippe", "senha": "0956kaue"},
-    {"id": 2, "nome": "João", "login": "joao", "senha": "5678"},
-    {"id": 3, "nome": "Pedro", "login": "pedro", "senha": "abcd"}
+    {"id": 1, "nome": "Aline", "login": "aline", "senha": "0810De2013"},
+    # {"id": 2, "nome": "João", "login": "joao", "senha": "5678"},
+    # {"id": 3, "nome": "Pedro", "login": "pedro", "senha": "abcd"}
 ]
 
 # Lista para armazenar os agendamentos
@@ -59,7 +59,7 @@ def agendar():
                 return render_template(
                     "agendar.html",
                     barbeiros=barbeiros,
-                    error="Já existe um agendamento nesse horário para o mesmo barbeiro."
+                    error="Já existe um agendamento nesse horário para o mesmo Nail Designer ."
                 )
 
         # Adicionar o agendamento à lista
